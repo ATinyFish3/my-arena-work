@@ -32,11 +32,12 @@ If you prefer to set up manually or the script fails:
 - During installation, check "Add Miniconda3 to my PATH environment variable"
 - Restart PowerShell after installation
 
-### 2. Clone ARENA_3.0 Repository
+### 2. Initialize Git Submodules
+The ARENA_3.0 repository is included as a submodule. After cloning this repo, initialize it:
 ```powershell
-cd ..
-git clone https://github.com/callummcdougall/ARENA_3.0.git
+git submodule update --init --recursive
 ```
+Or just run `.\setup-new-device.ps1` which handles everything automatically.
 
 ### 3. Create Conda Environment
 ```powershell
@@ -46,7 +47,7 @@ conda activate arena-env
 
 ### 4. Install Dependencies
 ```powershell
-cd ..\ARENA_3.0
+cd ARENA_3.0
 pip install -r requirements.txt
 conda install ipykernel --update-deps --force-reinstall -y
 ```
@@ -64,9 +65,15 @@ conda activate arena-env
 
 ### Work on Exercises
 ```powershell
-cd ..\ARENA_3.0\chapter0_fundamentals\exercises
+cd ARENA_3.0\chapter0_fundamentals\exercises
 # Open exercises in VS Code or Jupyter
 ```
+
+**Note**: The ARENA_3.0 repository is included as a git submodule, so it's part of this repository. When you clone this repo, make sure to initialize submodules:
+```powershell
+git submodule update --init --recursive
+```
+Or use the setup script which handles this automatically.
 
 ### Commit and Push
 ```powershell

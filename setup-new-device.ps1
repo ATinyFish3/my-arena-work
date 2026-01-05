@@ -67,21 +67,29 @@ if (-not $SkipCondaInstall) {
     }
 }
 
-# Step 2: Clone ARENA_3.0 repository if needed
+# Step 2: Initialize git submodules (ARENA_3.0 is included as a submodule)
 if (-not $SkipRepoClone) {
     Write-Host ""
-    Write-Host "Step 2: Checking ARENA_3.0 repository..." -ForegroundColor Yellow
+    Write-Host "Step 2: Initializing git submodules (ARENA_3.0)..." -ForegroundColor Yellow
     
-    $arenaRepoPath = Join-Path (Split-Path $PSScriptRoot -Parent) "ARENA_3.0"
+    $arenaRepoPath = Join-Path $PSScriptRoot "ARENA_3.0"
     
-    if (-not (Test-Path $arenaRepoPath)) {
-        Write-Host "ARENA_3.0 repository not found. Cloning..." -ForegroundColor Yellow
-        $parentDir = Split-Path $PSScriptRoot -Parent
-        Set-Location $parentDir
-        git clone https://github.com/callummcdougall/ARENA_3.0.git
-        Write-Host "ARENA_3.0 repository cloned!" -ForegroundColor Green
+    if (-not (Test-Path $arenaRepoPath) -or -not (Test-Path (Join-Path $arenaRepoPath ".git"))) {
+        Write-Host "ARENA_3.0 submodule not initialized. Initializing..." -ForegroundColor Yellow
+        Set-Location $PSScriptRoot
+        git submodule update --init --recursive
+        
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "Warning: Failed to initialize submodule. Trying alternative method..." -ForegroundColor Yellow
+            # Fallback: clone directly if submodule fails
+            if (-not (Test-Path $arenaRepoPath)) {
+                git clone https://github.com/callummcdougall/ARENA_3.0.git $arenaRepoPath
+            }
+        } else {
+            Write-Host "ARENA_3.0 submodule initialized!" -ForegroundColor Green
+        }
     } else {
-        Write-Host "ARENA_3.0 repository found at: $arenaRepoPath" -ForegroundColor Green
+        Write-Host "ARENA_3.0 submodule already initialized at: $arenaRepoPath" -ForegroundColor Green
     }
 }
 
@@ -120,7 +128,7 @@ if ($envExists) {
 Write-Host ""
 Write-Host "Step 4: Installing dependencies..." -ForegroundColor Yellow
 
-$arenaRepoPath = Join-Path (Split-Path $PSScriptRoot -Parent) "ARENA_3.0"
+$arenaRepoPath = Join-Path $PSScriptRoot "ARENA_3.0"
 $requirementsPath = Join-Path $arenaRepoPath "requirements.txt"
 
 if (Test-Path $requirementsPath) {
@@ -154,6 +162,6 @@ Write-Host "   .\init-conda.ps1" -ForegroundColor Yellow
 Write-Host "   Or restart PowerShell" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "3. Start working on exercises:" -ForegroundColor White
-Write-Host "   cd ..\ARENA_3.0\chapter0_fundamentals\exercises" -ForegroundColor Yellow
+Write-Host "   cd ARENA_3.0\chapter0_fundamentals\exercises" -ForegroundColor Yellow
 Write-Host ""
 

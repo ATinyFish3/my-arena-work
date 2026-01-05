@@ -33,7 +33,12 @@ conda activate arena-env
 
 ### Work on Exercises
 ```powershell
-cd ..\ARENA_3.0\chapter0_fundamentals\exercises
+cd ARENA_3.0\chapter0_fundamentals\exercises
+```
+
+**Note**: ARENA_3.0 is included as a git submodule. After cloning, run:
+```powershell
+git submodule update --init --recursive
 ```
 
 ### Save Your Work
@@ -55,6 +60,14 @@ git push
 2. **On new device**: Clone and set up
    ```powershell
    git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   cd YOUR_REPO
+   git submodule update --init --recursive  # Initialize ARENA_3.0 submodule
+   .\setup-new-device.ps1
+   ```
+   
+   Or clone with submodules in one command:
+   ```powershell
+   git clone --recurse-submodules https://github.com/YOUR_USERNAME/YOUR_REPO.git
    cd YOUR_REPO
    .\setup-new-device.ps1
    ```
