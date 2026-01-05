@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Conda
+.conda/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (uncomment if you don't want to track large data files)
+# *.pkl
+# *.h5
+# *.pt
+# *.pth
+# data/
+# models/
+
+# Weights & Biases
+wandb/
+
+# Temporary files
+*.tmp
+*.log
+
