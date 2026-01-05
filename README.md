@@ -12,7 +12,7 @@ After cloning this repository, run the setup script:
 
 This will:
 1. Install Miniconda (if not already installed)
-2. Clone the ARENA_3.0 repository
+2. Initialize the ARENA_3.0 submodule (included in this repo)
 3. Create the `arena-env` conda environment
 4. Install all required dependencies
 
