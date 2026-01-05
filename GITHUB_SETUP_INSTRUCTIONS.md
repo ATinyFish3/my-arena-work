@@ -16,6 +16,11 @@ Your local repository has been initialized! Now you need to create the repositor
 
 ## Step 2: Connect Your Local Repository
 
+**Important**: This repository includes ARENA_3.0 as a git submodule. When cloning on other devices, use:
+```powershell
+git clone --recurse-submodules https://github.com/YOUR_USERNAME/YOUR_REPO.git
+```
+
 After creating the repository on GitHub, run this command in PowerShell:
 
 ```powershell
@@ -89,17 +94,30 @@ Once connected, you can:
 
 ## Setting Up on Another Device
 
-After cloning this repository on a new device, simply run:
+After cloning this repository on a new device:
 
+**Option 1: Clone with submodules (recommended)**
 ```powershell
+git clone --recurse-submodules https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
 .\setup-new-device.ps1
 ```
 
-This will automatically:
+**Option 2: Clone then initialize submodules**
+```powershell
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+git submodule update --init --recursive
+.\setup-new-device.ps1
+```
+
+The setup script will automatically:
 - Install Miniconda (if needed)
-- Clone the ARENA_3.0 repository
+- Initialize the ARENA_3.0 submodule (if not already done)
 - Set up the conda environment
 - Install all dependencies
 
-See `README.md` for more details.
+**Note**: ARENA_3.0 is included as a git submodule, so it's part of your repository. No need to clone it separately!
+
+See `README.md` and `SUBMODULE_INFO.md` for more details.
 
